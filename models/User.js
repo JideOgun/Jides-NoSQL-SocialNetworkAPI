@@ -8,7 +8,7 @@ const UserSchema = new Schema({
           unique: true,
           required: true,
           trim: true
-      }  ,
+      },
       email: {
         type: String,
         required: [true, 'email is required'],
@@ -17,20 +17,34 @@ const UserSchema = new Schema({
                 return /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(v)
             }
         },
-        message: props => `{$props.value} is not a valid email!` 
+        message: props => `${props.value} is not a valid email!` 
       },
-      thoughts: [],
-      friends: []
+      thoughts: [
+          {
+              type: Schema.Types.ObjectId,
+              ref: 'Thought'
+          }
+      ],
+      friends: [
+          {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+          }
+      ]
 },
 {
     toJSON: {
+        virtuals: true,
         getters: true
-    }
+    },
+    id: false
 }
 )
 
+UserSchema.virtual('friendCount').get(function() {
+    return this.friends.length;
+});
 
-
-
+const User = model('User', UserSchema)
 
 module.exports = User;
