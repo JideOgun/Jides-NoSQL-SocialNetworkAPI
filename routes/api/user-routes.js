@@ -16,7 +16,7 @@ router.route('/')
 .post(createUser)
 
 // setting up GET one, PUT, and delete at /api/user/:id
-router.route('/:id')
+router.route('/:userId')
 .get(getUserById)
 .put(updateUser)
 .delete(deleteUser)
