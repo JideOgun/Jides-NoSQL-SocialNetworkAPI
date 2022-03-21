@@ -22,9 +22,6 @@ router.route('/:id')
 .delete(deleteUser)
 
 // // setting up route to post a friend in a single user at /api/users/:userId/friends
-// router.route('/:userId/friends')
-
-
 router.route('/:userId/friends/:friendId')
 .post(addFriend)
 .delete(removeFriend)
